@@ -1,6 +1,5 @@
 package mooo.lohackers.bigdata.spark.fdt;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.spark.SparkConf;
@@ -14,12 +13,7 @@ public class Driver {
 		
 		JavaSparkContext sc = new JavaSparkContext(new SparkConf().setAppName("Turin Traffic Flow"));
 		
-		JavaRDD<String> inputRDD = sc.emptyRDD();
-		
-		for(String string : args) {
-			if(new File(string) != null)
-				inputRDD.union(sc.textFile(string));
-		}
+		JavaRDD<String> inputRDD = sc.textFile(args[0]);
 		
 		JavaRDD<TrafficFlowEntry> entriesRDD = inputRDD
 				.map(string -> {
