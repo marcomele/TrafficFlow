@@ -34,7 +34,11 @@ public class Driver {
 					return speeds.stream().mapToDouble(d -> d).average().orElseGet(() -> new Double(-1.0));
 				});
 		
-		averageSpeedPerStreetRDD.saveAsTextFile("averageSpeedPerStreetOutput");
+		averageSpeedPerStreetRDD
+			.mapToPair(tuple2 -> tuple2.swap())
+			.sortByKey(false)
+			.mapToPair(tuple2 -> tuple2.swap())
+			.saveAsTextFile("averageSpeedPerStreetOutput");
 		
 		sc.close();
 
