@@ -3,6 +3,10 @@ package mooo.lohackers.bigdata.spark.fdt;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.*;
 
+import java.util.ArrayList;
+
+import scala.Tuple2;
+
 public class Driver {
 
 	public static void main(String[] args) {
@@ -21,6 +25,16 @@ public class Driver {
 							Integer.valueOf(fields[15]), fields[19], Double.valueOf(fields[21]), Double.valueOf(fields[23]));
 				});
 		
+		JavaPairRDD<String, Double> averageSpeedPerStreetRDD = entriesRDD
+				.mapToPair(trafficFlowEntry -> new Tuple2<String,Double>(trafficFlowEntry.getRoadName(), trafficFlowEntry.getSpeed()))
+				.groupByKey()
+				.mapValues(iterableDoubleSpeed -> {
+					ArrayList<Double> speeds = new ArrayList<>();
+					iterableDoubleSpeed.forEach(speeds::add);
+					return speeds.stream().mapToDouble(d -> d).average().orElseGet(() -> new Double(-1.0));
+				});
+		
+		averageSpeedPerStreetRDD.saveAsTextFile("averageSpeedPerStreetOutput");
 		
 		sc.close();
 
