@@ -27,6 +27,19 @@ public class TrafficFlowEntry {
 		this.date = date;
 		this.flow = flow;
 		this.speed = speed;
+	}	@Override
+	public String toString() {
+		return new String(sensorId + ";"
+				+ roadId + ";"
+				+ roadName + ";"
+				+ offset.toString() + ";"
+				+ (direction ? "positive" : "negative") + ";"
+				+ latitude.toString() + ";"
+				+ longitude.toString() + ";"
+				+ accuracy.toString() + ";"
+				+ date + ";"
+				+ flow.toString() + ";" 
+				+ speed.toString()); 
 	}
 	public String getSensorId() {
 		return sensorId;

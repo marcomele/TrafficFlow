@@ -1,2 +1,3 @@
 *.xml
 inputPartition*
+/bin/
