@@ -1,7 +1,13 @@
 package mooo.lohackers.bigdata.spark.fdt;
 
-public class TrafficFlowEntry {
+import java.io.Serializable;
+
+public class TrafficFlowEntry implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -435808009787910196L;
 	private String sensorId;
 	private String roadId;
 	private String roadName;
