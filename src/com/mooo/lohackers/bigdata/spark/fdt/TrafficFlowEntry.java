@@ -1,4 +1,4 @@
-package mooo.lohackers.bigdata.spark.fdt;
+package com.mooo.lohackers.bigdata.spark.fdt;
 
 import java.io.Serializable;
 
