@@ -33,15 +33,29 @@ public class Driver {
 				List<String> parsedLine = entriesRDD.map(TrafficFlowEntry::toString).collect();
 
 				try {
-					URI uri = URI.create("trafficFlow/parsedData.csv");
+					URI uri = URI.create("parsedData.csv");
 
 					FileSystem file = FileSystem.get(uri, new Configuration());
 					FSDataOutputStream outputFile = file.create(new Path(uri));
 
 					BufferedWriter bOutFile = new BufferedWriter(new OutputStreamWriter(outputFile, "UTF-8"));
 					
+					try {
+						bOutFile.write(TrafficFlowEntry.getCSVFirstRow());
+						bOutFile.newLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
 					parsedLine.stream()
-						.forEach(string -> { try { bOutFile.write(string); bOutFile.newLine(); } catch (IOException e) { e.printStackTrace(); } });
+						.forEach(string -> { 
+							try { 
+								bOutFile.write(string);
+								bOutFile.newLine(); 
+							} catch (IOException e) { 
+								e.printStackTrace(); 
+							} 
+						});
 
 					bOutFile.close();
 					outputFile.close();

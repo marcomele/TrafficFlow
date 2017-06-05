@@ -47,6 +47,19 @@ public class TrafficFlowEntry implements Serializable{
 				+ flow.toString() + ";" 
 				+ speed.toString()); 
 	}
+	public static String getCSVFirstRow() {
+		return new String("sensorId" + ";"
+				+ "roadId" + ";"
+				+ "roadName" + ";"
+				+ "offset" + ";"
+				+ "direction" + ";"
+				+ "latitude" + ";"
+				+ "longitude" + ";"
+				+ "accuracy" + ";"
+				+ "date" + ";"
+				+ "flow" + ";" 
+				+ "speed");		
+	}
 	public String getSensorId() {
 		return sensorId;
 	}
